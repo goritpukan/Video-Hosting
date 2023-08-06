@@ -1,0 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --light-header-background-color: rgb(226, 226, 226);
+    --dark-header-background-color: rgb(47, 47, 47);
+}
