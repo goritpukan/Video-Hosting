@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/signup", signup);
 
-router.post("/singin", signin);
+router.post("/signin", signin);
 
 router.post("/google", google);
 

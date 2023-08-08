@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
@@ -10,9 +11,10 @@ import authRoutes from "./routes/auth.js";
 const app = express();
 dotenv.config();
 
-const PORT = 8800;
+const {DB_URI, PORT} = process.env;
 
 try {
+  app.use(cookieParser());
   app.use(express.json());
 
   app.use("/api/auth", authRoutes);
@@ -22,7 +24,7 @@ try {
     const status = err.status || 500;
     const message = err.message || "Error";
     
-    return res.staus(status).json({
+    return res.status(status).json({
       success: false,
       status,
       message,
@@ -34,13 +36,13 @@ try {
     console.log("server is running on port:", PORT);
   });
 
-  mongoose.connect(process.env.DB_URI)
+  mongoose.connect(DB_URI)
     .then(() => {
       console.log("connected to db");
     })
     .catch((err => { throw err }));
 
-} catch (e) {
-  console.log(e);
+} catch (err) {
+  console.log(err);
   process.exit(1);
 }
