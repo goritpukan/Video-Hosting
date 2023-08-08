@@ -22,6 +22,7 @@ export default function App() {
         <Suspense fallback={<h1>Loading...</h1>}>
           <Header />
           <Routes>
+            <Route path="*" element={<h1>Error 404 not found</h1>}/>
             <Route path="/" element={<MainPage />} />
           </Routes>
         </Suspense>
