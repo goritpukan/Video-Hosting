@@ -18,7 +18,9 @@ export const signup = async (req, res, next) => {
         res.cookie("access_token", token, {
             httpOnly: true,
         });
-        res.status(200).send(newUser);
+
+        const {password, ..._user} = newUser._doc;
+        res.status(200).send(_user);
 
 
     } catch (err) {
@@ -38,10 +40,12 @@ export const signin = async (req, res, next) => {
         }
 
         if (bcrypt.compareSync(password, user.password)) {
+            const {password, ..._user} = user._doc;
+            
             const token = jsonwebtoken.sign({ id: user._id }, process.env.JWT_KEY, { expiresIn: 3 * 24 * 60 * 60, });
             res.cookie("access_token", token, {
                 httpOnly: true,
-            }).status(200).send(user);
+            }).status(200).send(_user);
         } else {
             next(createError(404, "Password is incorrect"));
         }
