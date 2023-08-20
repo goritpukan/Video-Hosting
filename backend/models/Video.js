@@ -15,7 +15,7 @@ const VideoSchema = new mongoose.Schema({
     },
     imgUrl: {
         type: String,
-        required: true,
+        default: "./defaultImage"
     },
     videoUrl: {
         type: String,
@@ -30,12 +30,10 @@ const VideoSchema = new mongoose.Schema({
         default: [],
     }, 
     likes: {
-        type: [String],
-        default: [],
+        type: Number,
     },
     dislikes: {
-        type: [String],
-        default: [],
+        type: Number,
     },
 
 },

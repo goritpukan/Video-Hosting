@@ -25,6 +25,18 @@ const UserSchema = new mongoose.Schema({
   subscribedUsers: {
     type: [String],
   },
+  watchedVideos: {
+    type: [String],
+  },
+  likedVideos: {
+    type: [String],
+  },
+  dislikedVideos: {
+    type: [String],
+  },
+  postedVideos: {
+    type: [String],
+  }
 
 }, { timestamps: true });
 

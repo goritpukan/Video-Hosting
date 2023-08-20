@@ -4,6 +4,7 @@
   left: 0;
   width: 100%;
   height: 100px;
+  display: none;
 }
 
 #light .header {
@@ -15,3 +16,4 @@
   background-color: var(--dark-header-background-color);
   color: white;
 }
+

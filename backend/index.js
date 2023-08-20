@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
-
+import videoRoutes from "./routes/videos.js"
 
 
 const app = express();
@@ -19,6 +19,7 @@ try {
 
   app.use("/api/auth", authRoutes);
   app.use("/api/users", userRoutes);
+  app.use("/api/videos", videoRoutes)
 
   app.use((err, req, res, next) => {
     const status = err.status || 500;

@@ -50,9 +50,9 @@ export const subscribe = async (req, res, next) => {
     if (req.params.id === req.user.id) return next(createError(403, "You can't subcsribe yourself"));
 
     const user = await User.findById(req.user.id);
-    for (let subscribedUsers of user.subscribedUsers) {
-      if (subscribedUsers === req.params.id) return next(createError(403, "You already subscribed"))
-    }
+    if(!user) return next(404, "User not found!");
+
+    if (user.subscribedUsers.includes(req.params.id)) return next(createError(403, "You already subscribed"));
 
     await User.findByIdAndUpdate(req.user.id, {
       $push: { subscribedUsers: req.params.id },
@@ -74,12 +74,9 @@ export const unsubscribe = async (req, res, next) => {
     if (req.params.id === req.user.id) return next(createError(403, "You can't unsubcsribe yourself"));
 
     const user = await User.findById(req.user.id);
+    if(!user) return next(404, "User not found!");
 
-    if(!user.subscribedUsers.length) return next(createError(403, "You are not subscribed"));
-
-    for (let subscribedUsers of user.subscribedUsers) {
-      if (subscribedUsers !== req.params.id) return next(createError(403, "You are not subscribed"));
-    }
+    if (!user.subscribedUsers.includes(req.params.id)) return next(createError(403, "You are not subscribed"));
 
     await User.findByIdAndUpdate(req.user.id, {
       $pull: { subscribedUsers: req.params.id },
