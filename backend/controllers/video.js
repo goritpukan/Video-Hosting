@@ -3,10 +3,11 @@ import User from "../models/User.js";
 import Video from "../models/Video.js"
 
 export const createVideo = async (req, res, next) => {
-  const newVideo = new Video({ userId: req.user.id, ...req.body });
   try {
+    const newVideo = new Video({ userId: req.user.id, ...req.body });
+
     const user = await User.findById(req.user.id);
-    if (!user) return next(createError(404, "User not found!"))
+    if (!user) return next(createError(404, "User not found!"));
 
     const savedVideo = await newVideo.save();
     await User.findByIdAndUpdate(req.user.id, {$push: {postedVideos: savedVideo.id}});
@@ -18,6 +19,9 @@ export const createVideo = async (req, res, next) => {
 
 export const updateVideo = async (req, res, next) => {
   try {
+    const user = await User.findById(req.user.id);
+    if (!user) return next(createError(404, "User not found!"));
+
     const video = await Video.findById(req.params.id);
 
     if (!video) return next(createError(404, "Video not found!"));
@@ -30,25 +34,28 @@ export const updateVideo = async (req, res, next) => {
 
     res.status(200).json(updatedVideo);
   } catch (err) {
-    next(err)
+    next(err);
   }
 }
 
 export const deleteVideo = async (req, res, next) => {
   try {
-    const video = await Video.findById(req.params.id);
+    const user = await User.findById(req.user.id);
+    if (!user) return next(createError(404, "User not found!"));
 
+    const video = await Video.findById(req.params.id);
     if (!video) return next(createError(404, "Video not found!"));
 
     if (video.userId !== req.user.id) return next((createError(403, "You can delete only your video!")));
 
     video.deleteOne();
 
-    res.status(200).json("Video has been deleted!")
+    res.status(200).json("Video has been deleted!");
   } catch (err) {
-    next(err)
+    next(err);
   }
 }
+
 export const getVideo = async (req, res, next) => {
   try {
     const video = await Video.findById(req.params.id);
@@ -90,11 +97,11 @@ export const addView = async (req, res, next) => {
 export const addLike = async (req, res, next) => {
   try {
     const video = Video.findById(req.params.id);
-    if (!video) return next(createError(404, "Video not found"));
+    if (!video) return next(createError(404, "Video not found!"));
 
     const user = await User.findById(req.user.id);
 
-    if (!user) return next(createError(404, "User not found"));
+    if (!user) return next(createError(404, "User not found!"));
 
     if (user.likedVideos.includes(req.params.id)) {
       await User.findByIdAndUpdate(req.user.id, { $pull: { likedVideos: req.params.id } });
@@ -110,14 +117,15 @@ export const addLike = async (req, res, next) => {
     next(err);
   }
 }
+
 export const addDislike = async (req, res, next) => {
   try {
     const video = Video.findById(req.params.id);
-    if (!video) return next(createError(404, "Video not found"));
+    if (!video) return next(createError(404, "Video not found!"));
 
     const user = await User.findById(req.user.id);
 
-    if (!user) return next(createError(404, "User not found"));
+    if (!user) return next(createError(404, "User not found!"));
 
     if (user.dislikedVideos.includes(req.params.id)) {
       await User.findByIdAndUpdate(req.user.id, { $pull: { dislikedVideos: req.params.id } });
@@ -133,6 +141,7 @@ export const addDislike = async (req, res, next) => {
     next(err);
   }
 }
+
 export const getTrendVideos = async (req, res, next) => {
   try {
 
@@ -173,5 +182,19 @@ export const getSubVideos = async (req, res, next) => {
     res.status(200).json(videos);
   } catch (err) {
     next(err)
+  }
+}
+
+export const search = async (req, res, next) => {
+  try{
+    const query = req.params.query;
+
+    const videos = await Video.find({title: {$regex: query, $options: "i" }}).limit(40);
+
+    if(!videos.length) return next(createError(404, "Video not found!"));
+
+    res.status(200).json(videos);
+  }catch(err){
+    next(err);
   }
 }

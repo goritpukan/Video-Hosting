@@ -2,7 +2,7 @@ import express from "express";
 import {
   createVideo, updateVideo, deleteVideo, getVideo,
   addView, addLike, addDislike, getTrendVideos, getHomepageVideos,
-  getRandomVideos, getSubVideos
+  getRandomVideos, getSubVideos, search
 } from "../controllers/video.js";
 
 import { verifyToken } from "../verifyToken.js";
@@ -19,5 +19,6 @@ router.get("/sub", verifyToken, getSubVideos);
 router.put("/view/:id", verifyToken, addView);
 router.put("/like/:id", verifyToken, addLike);
 router.put("/dislike/:id", verifyToken, addDislike);
+router.get("/search/:query", search);
 
 export default router;

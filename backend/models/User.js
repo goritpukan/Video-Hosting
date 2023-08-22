@@ -36,7 +36,16 @@ const UserSchema = new mongoose.Schema({
   },
   postedVideos: {
     type: [String],
-  }
+  },
+  postedComments:{
+    type: [String],
+  },
+  likedComments: {
+    type: [String],
+  },
+  dislikedComments: {
+    type: [String],
+  },
 
 }, { timestamps: true });
 
