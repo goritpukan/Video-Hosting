@@ -3,6 +3,7 @@ import { createError } from "../error.js";
 import Comment from "../models/Comment.js";
 import User from "../models/User.js";
 import Video from "../models/Video.js";
+import Answer from "../models/Answer.js";
 
 export const createComment = async (req, res, next) => {
   try {
@@ -54,7 +55,13 @@ export const deleteComment = async (req, res, next) => {
 
     if (comment.userId !== req.user.id) return next((createError(403, "You can delete only your comment!")));
 
-    comment.deleteOne();
+    await Comment.findByIdAndDelete(req.params.id);
+
+    await User.findByIdAndUpdate(req.user.id, {$pull: {postedComments: comment.id}});
+    comment.answers.map(async answerId => {
+      await Answer.findByIdAndDelete(answerId);
+    });
+    //протестить как работает и сделать чтобы у юзера при удалении удаляло все его коменты и видео
 
     res.status(200).json("Comment has been deleted!");
   } catch (err) {

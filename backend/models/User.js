@@ -43,9 +43,6 @@ const UserSchema = new mongoose.Schema({
   likedComments: {
     type: [String],
   },
-  dislikedComments: {
-    type: [String],
-  },
 
 }, { timestamps: true });
 

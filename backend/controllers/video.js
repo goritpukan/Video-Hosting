@@ -1,6 +1,7 @@
 import { createError } from "../error.js";
 import User from "../models/User.js";
-import Video from "../models/Video.js"
+import Video from "../models/Video.js";
+import Comment from "../models/Comment.js";
 
 export const createVideo = async (req, res, next) => {
   try {
@@ -48,7 +49,9 @@ export const deleteVideo = async (req, res, next) => {
 
     if (video.userId !== req.user.id) return next((createError(403, "You can delete only your video!")));
 
-    video.deleteOne();
+    await User.findOneAndUpdate({postedVideos: req.params.id}, {$pull: {postedVideos: req.params.id}});
+    await Comment.find({videoId: req.params.id}).deleteMany();
+    await Video.findByIdAndDelete(req.params.id);
 
     res.status(200).json("Video has been deleted!");
   } catch (err) {

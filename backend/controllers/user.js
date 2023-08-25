@@ -1,5 +1,8 @@
 import { createError } from "../error.js"
 import User from "../models/User.js"
+import Video from "../models/Video.js";
+import Comment from "../models/Comment.js";
+import Answer from "../models/Answer.js";
 
 export const updateUser = async (req, res, next) => {
   if (req.params.id === req.user.id) {
@@ -22,6 +25,9 @@ export const updateUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
   if (req.params.id === req.user.id) {
     try {
+      await Video.find({userId: req.params.id}).deleteMany();
+      await Comment.find({userId: req.params.id}).deleteMany();
+      await Answer.find({userId: req.params.id}).deleteMany();
       await User.findByIdAndDelete(req.params.id,);
       res.status(200).json("User has been deleted");
 

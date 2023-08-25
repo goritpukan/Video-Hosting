@@ -5,23 +5,14 @@ const AnswerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    commentId: {
-        type: String,
-        required: true,
-    },
     content: {
         type: String,
         required: true,
     },
     likes: {
         type: Number,
+        default: 0,
     },
-    dislikes: {
-        type: Number,
-    },
-    answers: {
-        type: [Object],
-    }
 
 },
     { timestamps: true }

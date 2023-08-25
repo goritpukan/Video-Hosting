@@ -16,11 +16,8 @@ const CommentSchema = new mongoose.Schema({
     likes: {
         type: Number,
     },
-    dislikes: {
-        type: Number,
-    },
     answers: {
-        type: [Object],
+        type: [String],
     }
 
 },
