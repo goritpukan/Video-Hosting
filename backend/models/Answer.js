@@ -5,6 +5,10 @@ const AnswerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    commentId: {
+        type: String,
+        required: true,
+    },
     content: {
         type: String,
         required: true,
@@ -13,6 +17,10 @@ const AnswerSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    isEdited:{
+        type: Boolean,
+        default: false,
+    }
 
 },
     { timestamps: true }

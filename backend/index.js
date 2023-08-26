@@ -7,7 +7,7 @@ import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import videoRoutes from "./routes/videos.js";
 import commentRoutes from "./routes/comments.js";
-import answerRouter from "./routes/answers.js";
+import answerRoutes from "./routes/answers.js"
 
 
 const app = express();
@@ -23,7 +23,7 @@ try {
   app.use("/api/users", userRoutes);
   app.use("/api/videos", videoRoutes);
   app.use("/api/comments", commentRoutes);
-  app.use("/api/comments/answers", answerRouter);
+  app.use("/api/comments/answers", answerRoutes);
 
   app.use((err, req, res, next) => {
     const status = err.status || 500;

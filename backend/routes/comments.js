@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  createComment, updateComment, deleteComment, getComments, addLike
+  createComment, updateComment, deleteComment, getComments, addLike,
 } from "../controllers/comment.js";
 
 import { verifyToken } from "../verifyToken.js";
@@ -12,7 +12,6 @@ router.put("/:id", verifyToken, updateComment);
 router.delete("/:id", verifyToken, deleteComment);
 router.get("/:videoId", getComments);
 router.put("/like/:id", verifyToken, addLike);
-// router.post("/answer/:id", verifyToken, answerComment);
 
 
 

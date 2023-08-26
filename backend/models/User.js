@@ -43,6 +43,12 @@ const UserSchema = new mongoose.Schema({
   likedComments: {
     type: [String],
   },
+  postedAnswers:{
+    type:[String],
+  },
+  likedAnswers:{
+    type:[String],
+  },
 
 }, { timestamps: true });
 

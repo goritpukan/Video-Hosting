@@ -36,7 +36,7 @@ export const updateComment = async (req, res, next) => {
     if (comment.userId !== req.user.id) return next((createError(403, "You can update only your comment!")));
 
     const updatedComment = await Comment.findByIdAndUpdate(req.params.id, {
-      $set: { userId: req.user.id, ...req.body },
+      $set: req.body
     }, { new: true });
 
     res.status(200).json(updatedComment);
@@ -57,7 +57,12 @@ export const deleteComment = async (req, res, next) => {
 
     await Comment.findByIdAndDelete(req.params.id);
 
-    await User.findByIdAndUpdate(req.user.id, {$pull: {postedComments: comment.id}});
+    await User.findByIdAndUpdate(req.user.id, { $pull: { postedComments: comment.id } });
+    
+    if (user.likedComments === comment.id) {
+      await User.findByIdAndUpdate(req.user.id, { $pull: { likedComments: comment.id } });
+    }
+
     comment.answers.map(async answerId => {
       await Answer.findByIdAndDelete(answerId);
     });
@@ -101,4 +106,5 @@ export const addLike = async (req, res, next) => {
     next(err);
   }
 }
+
 

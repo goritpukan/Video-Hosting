@@ -30,7 +30,7 @@ export const updateVideo = async (req, res, next) => {
     if (video.userId !== req.user.id) return next((createError(403, "You can update only your video!")));
 
     const updatedVideo = await Video.findByIdAndUpdate(req.params.id, {
-      $set: { userId: req.user.id, ...req.body },
+      $set: req.body 
     }, { new: true });
 
     res.status(200).json(updatedVideo);
@@ -201,3 +201,4 @@ export const search = async (req, res, next) => {
     next(err);
   }
 }
+
