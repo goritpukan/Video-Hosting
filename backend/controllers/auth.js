@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
+import validator from "validator";
 
 
 import { createError } from "../error.js"
@@ -7,6 +8,7 @@ import User from "../models/User.js";
 
 export const signup = async (req, res, next) => {
     try {
+        if(!validator.isEmail(req.body.email)) return next(createError(422, "Email is invalid"));
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 

@@ -58,8 +58,8 @@ export const deleteComment = async (req, res, next) => {
     await Comment.findByIdAndDelete(req.params.id);
 
     await User.findByIdAndUpdate(req.user.id, { $pull: { postedComments: comment.id } });
-    
-    if (user.likedComments === comment.id) {
+
+    if (user.likedComments.includes(comment.id)) {
       await User.findByIdAndUpdate(req.user.id, { $pull: { likedComments: comment.id } });
     }
 

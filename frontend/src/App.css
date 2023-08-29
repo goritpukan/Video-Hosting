@@ -1,9 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 :root {
-    --light-header-background-color: rgb(226, 226, 226);
-    --dark-header-background-color: rgb(47, 47, 47);
+    --ligth-background-color: #fff;
+    --light-form-background-color: rgb(226, 226, 226);
+    --light-input-background-color: rgb(255, 255, 255);
+
+    --dark-background-color: #222;
+    --dark-form-background-color: #333333;
+    --dark-input-background-color: #565656;
+}
+
+#light {
+    background-color: var(--ligth-background-color);
+    color: black;
+}
+
+#dark {
+    background-color: var(--dark-background-color);
+    color: white;
 }
