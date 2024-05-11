@@ -28,7 +28,7 @@
   padding: 0;
   position: absolute;
   width: 40%;
-  height: 70%;
+  height: 85%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -41,12 +41,12 @@
 }
 
 .signin form {
-  grid-template-rows: 70px 1fr 1fr 1fr 30px;
+  grid-template-rows: 70px 1fr 1fr 1fr 15% 30px;
   grid-template-columns: 1fr;
 }
 
 .signup form {
-  grid-template-rows: 70px 1fr 1fr 1fr 1fr 30px;
+  grid-template-rows: 70px 1fr 1fr 1fr 1fr 15% 30px;
   grid-template-columns: 1fr;
 }
 
@@ -66,31 +66,65 @@
   position: relative;
   height: 50%;
   width: 90%;
-  left: 5%;
-  top: 25%;
+  align-self: center;
+  justify-self: center;
 
   grid-column-start: 1;
 
   border-radius: 20px;
   border-width: 0;
+
+  font-size: 20px;
+
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: 10px;
+
+}
+
+.signin form input[type="email"],
+.signin form input[type="password"],
+.signup form input[type="text"],
+.signup form input[type="email"],
+.signup form input[type="password"] {
+  width: calc(90% - 40px);
+  padding-left: 40px;
 }
 
 .signin[id="light"] form input:hover,
 .signup[id="light"] form input:hover {
   border-style: solid;
   border-width: 1px;
+  /* edit this */
 }
 
 .signin[id="dark"] form input:hover,
 .signup[id="dark"] form input:hover {
   border-style: solid;
   border-width: 1px;
+  /* edit this */
+}
+
+.signin[id="light"] form input:focus,
+.signup[id="light"] form input:focus {
+  border-style: solid;
+  border-color: black;
+  /* another border color when focus for dark and white mode */
+}
+
+.signin[id="light"] form input:focus,
+.signup[id="light"] form input:focus {
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+  /* another border color when focus for dark and white mode */
 }
 
 .signin form input[type="submit"],
 .signup form input[type="submit"] {
   font-size: 30px;
 }
+
 
 .signin form label,
 .signup form label {
@@ -131,8 +165,44 @@
 .signup form label[for="password"] {
   grid-row: 4;
 }
+
+.signin[id="light"] form input[type="text"],
+.signup[id="light"] form input[type="text"] {
+  background-image: url("../../icons/black-user.png");
+}
+
+.signin[id="dark"] form input[type="text"],
+.signup[id="dark"] form input[type="text"] {
+  background-image: url("../../icons/white-user.png");
+}
+
+.signin[id="light"] form input[type="email"],
+.signup[id="light"] form input[type="email"] {
+  background-image: url("../../icons/black-email.png");
+}
+
+.signin[id="dark"] form input[type="email"],
+.signup[id="dark"] form input[type="email"] {
+  background-image: url("../../icons/white-email.png");
+}
+
+.signin[id="light"] form input[type="password"],
+.signup[id="light"] form input[type="password"] {
+  background-image: url("../../icons/black-password.png");
+}
+
+.signin[id="dark"] form input[type="password"],
+.signup[id="dark"] form input[type="password"] {
+  background-image: url("../../icons/white-password.png");
+}
+
+.google-sign-in{
+  align-self: center;
+  justify-self: center;
+}
+
 .signin form span,
-.signup form span{
+.signup form span {
   text-align: center;
 }
 

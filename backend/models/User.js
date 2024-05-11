@@ -13,10 +13,13 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
   },
   img: {
     type: String,
+  },
+  fromGoogle: {
+    type: Boolean,
+    default: false,
   },
   subscribers: {
     type: Number,
@@ -37,17 +40,17 @@ const UserSchema = new mongoose.Schema({
   postedVideos: {
     type: [String],
   },
-  postedComments:{
+  postedComments: {
     type: [String],
   },
   likedComments: {
     type: [String],
   },
-  postedAnswers:{
-    type:[String],
+  postedAnswers: {
+    type: [String],
   },
-  likedAnswers:{
-    type:[String],
+  likedAnswers: {
+    type: [String],
   },
 
 }, { timestamps: true });

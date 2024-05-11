@@ -2,13 +2,13 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import cors from "cors"
+import cors from "cors";
 
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import videoRoutes from "./routes/videos.js";
 import commentRoutes from "./routes/comments.js";
-import answerRoutes from "./routes/answers.js"
+import answerRoutes from "./routes/answers.js";
 
 
 const app = express();
