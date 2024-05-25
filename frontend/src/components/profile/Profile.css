@@ -1,0 +1,15 @@
+#light .profile{
+  background-color: var(--ligth-background-color);
+}
+
+#dark .profile{
+  background-color: var(--dark-background-color);
+}
+
+.profile{
+  transition: 2s;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 100px);
+  top: 100px;
+}

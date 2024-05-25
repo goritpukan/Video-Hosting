@@ -4,6 +4,8 @@ import Video from "../models/Video.js";
 import Comment from "../models/Comment.js";
 import Answer from "../models/Answer.js";
 
+
+
 export const updateUser = async (req, res, next) => {
   if (req.params.id === req.user.id) {
     try {

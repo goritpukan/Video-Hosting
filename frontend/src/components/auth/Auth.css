@@ -40,6 +40,33 @@
 
 }
 
+
+@media (width <= 1024px){
+  .signin form,
+  .signup form{
+    width: 80%;
+  }
+}
+
+@media (width <= 500px) {
+  .signin form,
+  .signup form{
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+  }
+}
+
+@media (height <= 505px){
+  .signin form,
+  .signup form{
+    width: 100%;
+    height: 100%;
+  }
+  
+}
+
+
 .signin form {
   grid-template-rows: 70px 1fr 1fr 1fr 15% 30px;
   grid-template-columns: 1fr;
@@ -68,6 +95,8 @@
   width: 90%;
   align-self: center;
   justify-self: center;
+
+  margin-top: 10px;
 
   grid-column-start: 1;
 

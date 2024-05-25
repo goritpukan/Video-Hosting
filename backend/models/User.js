@@ -14,8 +14,8 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  img: {
-    type: String,
+  img:{
+    type: String
   },
   fromGoogle: {
     type: Boolean,
